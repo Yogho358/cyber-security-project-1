@@ -14,3 +14,10 @@
     </fieldset>
     <input type="submit" value="Vote">
 </form>
+
+<form action="{% url 'polls:add_choice' question.id %}" method="post">
+    {% csrf_token %}
+    <p>Add new choice</p>
+    <input type="text" name="add_choice">
+    <input type="submit" value="Add">
+</form>

@@ -1,4 +1,4 @@
-from operator import ge
+import sqlite3
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from .models import Question, Choice
@@ -20,6 +20,15 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+
+def add_choice(request, question_id):
+
+    connection=sqlite3.connect("db.sqlite3")
+    add_choice = request.POST["add_choice"]
+    connection.execute(f"INSERT INTO Polls_choice (choice_text, votes, question_id) values ('{add_choice}', 0, {question_id})")
+    connection.commit()
+
+    return HttpResponseRedirect(reverse("polls:results", args=(question_id,)))
 
 class IndexView(generic.ListView):
     template_name = "polls/index.html"

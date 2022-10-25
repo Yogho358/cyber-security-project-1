@@ -1,3 +1,4 @@
+from django.contrib.auth import views as auth_views
 """csecproject URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -19,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path("polls/", include("polls.urls")),
     path('admin/', admin.site.urls),
+    path("accounts/login/", auth_views.LoginView.as_view()),
 ]

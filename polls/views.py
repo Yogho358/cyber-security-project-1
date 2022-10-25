@@ -2,6 +2,7 @@ import sqlite3
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from .models import Question, Choice
+from django.contrib.auth.decorators import login_required
 
 from django.urls import reverse
 from django.views import generic
@@ -21,6 +22,7 @@ def vote(request, question_id):
         selected_choice.save()
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
 
+
 def add_choice(request, question_id):
 
     connection=sqlite3.connect("db.sqlite3")
@@ -34,6 +36,7 @@ def add_choice(request, question_id):
     # c.save()
 
     return HttpResponseRedirect(reverse("polls:results", args=(question_id,)))
+
 
 class IndexView(generic.ListView):
     template_name = "polls/index.html"

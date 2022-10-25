@@ -28,6 +28,11 @@ def add_choice(request, question_id):
     connection.execute(f"INSERT INTO Polls_choice (choice_text, votes, question_id) values ('{add_choice}', 0, {question_id})")
     connection.commit()
 
+
+    # question = get_object_or_404(Question,pk=question_id)
+    # c = Choice(choice_text=request.POST["add_choice"], votes=0, question=question)
+    # c.save()
+
     return HttpResponseRedirect(reverse("polls:results", args=(question_id,)))
 
 class IndexView(generic.ListView):
